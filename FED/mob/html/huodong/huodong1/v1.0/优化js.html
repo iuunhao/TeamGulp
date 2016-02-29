@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    !(function() {
+
+
+
+        // var sConfig = {
+        //     url: '/Users/vl/Desktop/FED/mob/sass/huodong/huodong1/v1.0/icon2.jpg',
+        //     cur: '/sass/',
+        //     cssTarget: '/css/',
+        //     htmlTarget: '/html/',
+        //     imagesTarget: '/images/',
+        //     sPort: 3000,
+        //     aa: function() {
+        //         return {
+        //             cssTargetPath: this.url.replace(RegExp(this.cur), this.cssTarget),
+        //             htmlTargetPath: this.url.replace(RegExp(this.cur), this.htmlTarget),
+        //             imagesTargetPath: this.url.replace(RegExp(this.cur), this.imagesTarget),
+        //         }
+        //     }
+
+        // }
+
+
+        // console.log(sConfig.aa().cssTargetPath)
+        // console.log(sConfig.aa().htmlTargetPath)
+        // console.log(sConfig.aa().imagesTargetPath)
+
+        // function sIndex(a) {
+        //     var reg = RegExp(a);
+        //     var isExist = reg.test(sConfig.url);
+        //     if (isExist) {
+        //         return {
+        //             isExist: isExist,
+        //         }
+        //     } else {
+        //         return false;
+        //     }
+        // }
+
+        // function sMark('/html/') {
+        //     var __url = this.url;
+        //     sDest3 = sOpt.sDest3().replace(sOpt.sSass, sOpt.sHtml);
+        // }
+
+        // console.log('默认路径:   ' + geturl());
+        // console.log('修改路径:   ' + sIndex('/images/'));
+        // 
+        // 
+        // 
+        // 
+        // 
+        // 
+        // 
+        // 
+        // 
+        // 
+        // 
+
+
+
+
+        var Base = function() {
+            this.url = '/Users/vl/Desktop/FED/mob/sass/huodong/huodong/v1.0';
+            this.cur = '/sass/';
+            this.cssTarget = '/css/';
+            this.htmlTarget = '/html/';
+            this.imagesTarget = '/images/';
+            this.sPort = 3000;
+            this.sNode_modules = 'FED';
+            this.pathReg = '^v([0-9]\.[0-9])*?';
+
+
+            return {
+                pathCss: this.sGetMark(this.cssTarget),
+                pathSass: this.url,
+                pathHtml: this.sGetMark(this.htmlTarget),
+                pathImg: this.sGetMark(this.imagesTarget),
+                pathSever: this.sGetSeverPath(),
+                domain: 'http://localhost:' + this.sPort + '/' + this.getSeverPath(this.htmlTarget),
+                domainImg: 'http://localhost:' + this.sPort + this.getSeverPath(this.imagesTarget),
+                DIYPath: this.pushCustomize('/css/', this.pathReg),
+                sPackUrl: this.sGetSeverPath() + 'node_modules/'
+            }
+        };
+        Base.prototype.sGetMark = function(pushPath) {
+            return this.url.replace(RegExp(this.cur), pushPath);
+        };
+        Base.prototype.sGetSeverPath = function() {
+            var path = this.url,
+                module = this.sNode_modules;
+            return path.slice(0, path.indexOf(module) + module.length + 1);
+        }
+        Base.prototype.getSeverPath = function(pushPath) {
+            var path = this.sGetMark(pushPath),
+                SeverPathIndex = path.indexOf(this.sNode_modules) + this.sNode_modules.length + 1;
+            return path.slice(SeverPathIndex, path.length);
+
+        };
+        Base.prototype.pushCustomize = function(type, sPath) {
+            var path = this.url,
+                reg = RegExp(sPath, 'i'),
+                pathArr = [],
+                newPathArr = [];
+            path = path.replace(RegExp(this.cur), type);
+
+            // if (!this.isMac()) {
+            if (true) {
+                pathArr = path.split('/')
+            } else {
+                // pathArr = path.split('/\')
+            }
+            path = path.replace(RegExp(this.cur), type);
+
+            for (var i = 0; i <= pathArr.length; i++) {
+                if (!reg.test(pathArr[i])) {
+                    newPathArr.push(pathArr[i]);
+                }
+            }
+            newPathArr = newPathArr.join('/');
+            newPathArr = newPathArr.slice(0, newPathArr.length - 1);
+
+            // if (this.isMac()) {
+            if (true) {
+                return newPathArr;
+            } else {
+                // meitui.join('/\');
+            }
+        };
+        Base.prototype.isMac = function() {
+            if (process.platform == 'darwin') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        var WDO = new Base();
+
+        console.log('-cssPath:=====' + WDO.pathCss);
+        console.log('sassPath:=====' + WDO.pathSass);
+        console.log('htmlPath:=====' + WDO.pathHtml);
+        console.log('imagPath:=====' + WDO.pathImg);
+        console.log('sevePath111:=====' + WDO.pathSever);
+        console.log('domaPath:=====' + WDO.domain);
+        console.log('DIYPath:=====' + WDO.DIYPath);
+        console.log('domaImag:=====' + WDO.domainImg);
+
+
+
+
+
+
+
+
+
+
+    })()
+    </script>
+</body>
+
+</html>
